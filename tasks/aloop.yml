@@ -1,0 +1,45 @@
+---
+# This configuration is required for JItsi BRoadcasting (Jibri)
+# https://github.com/jitsi/docker-jitsi-meet#jitsi-broadcasting-infrastructure-jibri-configuration
+
+- name: Install required sound modules
+  apt:
+    name: linux-image-extra-virtual
+
+- name: Configure ALSA loop module
+  copy:
+    dest: '/etc/modprobe.d/alsa-loopback.conf'
+    content: 'options snd-aloop enable=1,1,1,1,1 index=0,1,2,3,4'
+
+- name: Enable ALSA loop module
+  lineinfile:
+    path: '/etc/modules'
+    line: 'snd-aloop'
+
+# Fix required due to user remapping
+- name: Make sound device permissions permanent
+  copy:
+    dest: '/etc/udev/rules.d/80-sound-permissions.rules'
+    content: 'SUBSYSTEM=="sound", MODE="0666"'
+
+- name: Remove ALSA loop module
+  modprobe:
+    name: 'snd-aloop'
+    state: absent
+  register: aloop_module_removal
+
+- name: Load ALSA loop module
+  modprobe:
+    name: 'snd-aloop'
+    state: present
+  register: aloop_module_loading
+
+- name: Read sound device permissions
+  stat:
+    path: '/dev/snd/controlC0'
+  register: aloop_control_device
+
+- name: Check sound device permissions
+  assert: 
+    that: aloop_control_device.stat.mode == "0666"
+    fail_msg: 'ALSA loop devices need to have mode 0666'

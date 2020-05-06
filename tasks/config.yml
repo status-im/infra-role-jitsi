@@ -1,0 +1,12 @@
+---
+- name: Clone Docker Compose repo
+  git:
+    repo: '{{ jitsi_docker_repo_url }}'
+    version: '{{ jitsi_docker_repo_rev }}'
+    dest: '{{ jitsi_cont_vol }}/repo'
+    update: true
+
+- name: Template .env file for containers
+  template:
+    src: 'env.j2'
+    dest: '{{ jitsi_cont_vol }}/repo/.env'

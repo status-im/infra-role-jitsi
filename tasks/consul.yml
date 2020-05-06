@@ -1,0 +1,15 @@
+---
+- name: Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ jitsi_cont_name }}'
+    consul_services:
+      - name: '{{ jitsi_cont_name }}'
+        tags: ['jitsi', 'meetings']
+        port: '{{ jitsi_web_https_port }}'
+        checks:
+          - id: '{{ jitsi_cont_name }}-status'
+            name: Jitsi Healthcheck
+            type: http
+            http: 'https://localhost:{{ jitsi_web_https_port }}/http-bind'
+            tls_skip_verify: true

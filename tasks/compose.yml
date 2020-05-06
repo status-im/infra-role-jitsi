@@ -1,0 +1,40 @@
+---
+# --compatibility flag required for mem/cpu limits
+- name: 'Create container: {{ jitsi_cont_name }}'
+  command: |
+    docker-compose \
+      --compatibility \
+      --file=docker-compose.yml \
+      --file=jibri.yml \
+      up \
+      --quiet-pull \
+      --no-build \
+      --detach \
+      {% if compose_recreate %}
+      --force-recreate \
+      {% endif %}
+      --no-color
+  args:
+    chdir: '{{ jitsi_cont_vol }}/repo'
+
+- name: 'Restart container: {{ jitsi_cont_name }}'
+  command: |
+    docker-compose \
+      --compatibility \
+      --file=docker-compose.yml \
+      --file=jibri.yml \
+      restart
+  args:
+    chdir: '{{ jitsi_cont_vol }}/repo'
+  when: compose_restart
+
+- name: 'Destroy container: {{ jitsi_cont_name }}'
+  command: |
+    docker-compose \
+      --compatibility \
+      --file=docker-compose.yml \
+      --file=jibri.yml \
+      stop
+  args:
+    chdir: '{{ jitsi_cont_vol }}/repo'
+  when: compose_destroy

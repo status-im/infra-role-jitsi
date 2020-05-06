@@ -1,0 +1,33 @@
+---
+# Repo
+jitsi_docker_repo_rev: 'stable-4416'
+jitsi_docker_repo_url: 'https://github.com/jitsi/docker-jitsi-meet.git'
+
+# Containers
+jitsi_cont_name: 'jitsi'
+jitsi_cont_vol: '/docker/{{ jitsi_cont_name }}'
+jitsi_cont_restart_policy: 'unless-stopped'
+
+# General
+jitsi_domain: ~
+jitsi_admin_email: ~
+jitsi_timezone: 'Europe/Amsterdam'
+jitsi_prosody_log_level: info
+
+# Ports, https one is not used
+jitsi_web_http_port: 8000
+jitsi_web_https_port: 8443
+jitsi_jvb_tcp_port: 4443
+jitsi_jvb_udp_port: 10000
+
+# Secrets
+jitsi_jicofo_component_secret: ~
+jitsi_jicofo_auth_password: ~
+jitsi_jvb_auth_password: ~
+jitsi_jibri_recorder_password: ~
+jitsi_jibri_xmpp_password: ~
+
+# Compose
+compose_recreate: false
+compose_destroy: false
+compose_restart: false
