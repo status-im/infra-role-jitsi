@@ -1,11 +1,12 @@
 ---
 # --compatibility flag required for mem/cpu limits
+# TODO: fix later for jibri
+#--file=jibri.yml \
 - name: 'Create container: {{ jitsi_cont_name }}'
   command: |
     docker-compose \
       --compatibility \
       --file=docker-compose.yml \
-      --file=jibri.yml \
       up \
       --quiet-pull \
       --no-build \
@@ -17,23 +18,25 @@
   args:
     chdir: '{{ jitsi_cont_vol }}/repo'
 
+# TODO: fix later for jibri
+#--file=jibri.yml \
 - name: 'Restart container: {{ jitsi_cont_name }}'
   command: |
     docker-compose \
       --compatibility \
       --file=docker-compose.yml \
-      --file=jibri.yml \
       restart
   args:
     chdir: '{{ jitsi_cont_vol }}/repo'
   when: compose_restart
 
+# TODO: fix later for jibri
+#--file=jibri.yml \
 - name: 'Destroy container: {{ jitsi_cont_name }}'
   command: |
     docker-compose \
       --compatibility \
       --file=docker-compose.yml \
-      --file=jibri.yml \
       stop
   args:
     chdir: '{{ jitsi_cont_vol }}/repo'

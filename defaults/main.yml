@@ -1,6 +1,6 @@
 ---
 # Repo
-jitsi_docker_repo_rev: 'stable-4416'
+jitsi_docker_repo_rev: 'stable-9258'
 jitsi_docker_repo_url: 'https://github.com/jitsi/docker-jitsi-meet.git'
 
 # Containers
