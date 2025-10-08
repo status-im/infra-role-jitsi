@@ -10,3 +10,5 @@
   template:
     src: 'env.j2'
     dest: '{{ jitsi_cont_vol }}/repo/.env'
+    owner: 'root'
+    mode: '0o640'
