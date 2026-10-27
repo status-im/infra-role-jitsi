@@ -12,3 +12,25 @@
     dest: '{{ jitsi_cont_vol }}/repo/.env'
     owner: 'root'
     mode: '0o640'
+
+# Create dirs so containrs could write.
+# TODO: fix permissions for files with secrets
+- name: Create container data directories
+  file:
+    path: '{{ jitsi_cont_vol }}/{{ item }}'
+    state: directory
+    owner: 'root'
+    group: 'root'
+    mode: '0o777'
+  loop:
+    - 'web'
+    - 'prosody/config'
+    - 'prosody/prosody-plugins-custom'
+    - 'jicofo'
+    - 'jvb'
+    - 'jibri'
+    - 'storage/web'
+    - 'storage/prosody'
+    - 'storage/transcripts'
+    - 'storage/jibri'
+    - 'tmp/web-load-test'

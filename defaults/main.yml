@@ -1,6 +1,6 @@
 ---
 # Repo
-jitsi_docker_repo_rev: 'stable-9753'
+jitsi_docker_repo_rev: 'stable-11248'
 jitsi_docker_repo_url: 'https://github.com/jitsi/docker-jitsi-meet.git'
 
 # Containers
@@ -14,11 +14,18 @@ jitsi_admin_email: ~
 jitsi_timezone: 'Europe/Amsterdam'
 jitsi_prosody_log_level: info
 
-# Ports, https one is not used
+# acme.sh default
+jitsi_letsencrypt_acme_server: 'zerossl'
+
+# Ports, the https one is not used
 jitsi_web_http_port: 8000
 jitsi_web_https_port: 8443
-jitsi_jvb_tcp_port: 4443
 jitsi_jvb_udp_port: 10000
+
+# List of IPs advertised to clients as JVB candidates.
+# Empty falls back to the interface address (and STUN discovered public IPs).
+# Set when the host is behind a reserved/floating IP, which differs from the interface address.
+#jitsi_jvb_advertise_ips: ['200.200.200.200']
 
 # Secrets
 jitsi_jicofo_component_secret: ~

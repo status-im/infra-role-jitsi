@@ -1,8 +1,18 @@
 ---
-- name: Install docker-compose
-  apt:
-    name: docker-compose
+- name: 'Check for existing docker compose'
+  command: 'docker compose version'
+  register: jitsi_compose_check
+  failed_when: false
+  changed_when: false
 
-- name: Install docker-compose
-  pip:
-    name: docker-compose
+- name: 'Install docker compose v2 from distro repository'
+  apt:
+    name: 'docker-compose-v2'
+  register: jitsi_compose_distro
+  failed_when: false
+  when: jitsi_compose_check.rc != 0
+
+- name: 'Install docker compose v2 from docker.com repository'
+  apt:
+    name: 'docker-compose-plugin'
+  when: jitsi_compose_check.rc != 0 and jitsi_compose_distro.rc | default(1) != 0
