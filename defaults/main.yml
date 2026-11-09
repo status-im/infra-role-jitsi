@@ -14,6 +14,16 @@ jitsi_admin_email: ~
 jitsi_timezone: 'Europe/Amsterdam'
 jitsi_prosody_log_level: info
 
+# TURN, STUN
+# jitsi_coturn_auth_secret: ~
+# TODO: fix TLS and switch TURN to udp
+jitsi_turn_transport: tcp
+# jitsi_turn_host: 'turn.example.org'
+jitsi_turn_port:  3478
+jitsi_turns_port: 5349
+# jitsi_stun_host: 'stun.example.org'
+jitsi_stun_port:  3478
+
 # acme.sh default
 jitsi_letsencrypt_acme_server: 'zerossl'
 
